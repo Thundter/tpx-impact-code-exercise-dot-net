@@ -28,7 +28,7 @@ public class UrlController : ControllerBase, IUrlController
     /// <remarks>
     /// todo needs testing
     /// </remarks>
-    [HttpDelete("{alias:string}")]
+    [HttpDelete("{alias}")]
     public async Task DeleteAsync([Required] string alias)
     {
         if (await _urlHandler.Delete(alias))
@@ -51,7 +51,7 @@ public class UrlController : ControllerBase, IUrlController
     /// <remarks>
     /// todo needs testing
     /// </remarks>
-    [HttpGet("{alias:string}")]
+    [HttpGet("{alias}")]
     public async Task GetAsync([Required] string alias)
     {
         UrlItem? shortenedUrl = await _urlHandler.GetByAlias(alias);
