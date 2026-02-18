@@ -1,0 +1,20 @@
+{
+  "runtime": "Net80",
+  "documentGenerator": {
+    "fromDocument": {
+      "url": "openapi.yaml"
+    }
+  },
+  "codeGenerators": {
+    "openApiToCSharpClient": {
+      "generateDefaultValues": true,
+      "generateClientInterfaces": true,
+      "generateClientClasses": true,
+      "generateExceptionClasses": false,
+      "suppressClientClassesOutput": true,
+      "namespace": "UrlShortener.Controllers",
+      "output": "Controllers/IUrlController.cs",
+      "generateOptionalParameters": false
+    }
+  }
+}

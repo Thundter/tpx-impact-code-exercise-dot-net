@@ -1,5 +1,25 @@
 # URL Shortener Coding Exercise
 
+## Getting Started Locally
+
+1. run `Python create_db.py` to create database for projectdotnet add package Swashbuckle.AspNetCore
+
+
+## notes
+
+__todo__ - currently untested 
+
+### .Net 10 & NSwag incompatability
+
+- installing the latest on the both of these causes many packages to auto downgrade, which in turn causes the update to fail
+- documentation for using both together is currently incomplete as .Net 10 is less that 2 months old
+- using both required and downgrade of .Net. Decided to use version 8.0
+
+### Swashbuckle.AspNetCore.Annotations 
+
+- this call was made to install `dotnet add package Swashbuckle.AspNetCore.Annotations --version 10.1.3` 
+- do not upgrade to version 10.1.4 as it auto downgrades to version 10.1.3, which in turn causes the update to fail
+
 ## Task
 
 Build a simple **URL shortener** in .Net and React

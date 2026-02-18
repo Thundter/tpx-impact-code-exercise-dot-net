@@ -1,4 +1,7 @@
 <Solution>
+  <Folder Name="/Solution Items/">
+    <File Path="../README.md" />
+  </Folder>
   <Project Path="UrlShortener.Tests/UrlShortener.Tests.csproj" />
   <Project Path="UrlShortener/UrlShortener.csproj" />
 </Solution>
