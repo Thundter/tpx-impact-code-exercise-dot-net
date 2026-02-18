@@ -5,21 +5,8 @@ namespace UrlShortener.Controllers;
 
 [ApiController]
 [Route("[controller]")]
-public class UrlController : ControllerBase, IUrlController
+public class UrlController(IUrlHandler urlHandler) : ControllerBase, IUrlController
 {
-    private readonly ILogger<UrlController> _logger;
-    private readonly IUrlHandler _urlHandler;
-
-    // todo dependency injection
-
-    public UrlController(
-        ILogger<UrlController> logger,
-        IUrlHandler urlHandler)
-    {
-        _logger = logger;
-        _urlHandler = urlHandler;
-    }
-
     /// <summary>
     /// Delete a shortened URL
     /// </summary>
@@ -31,7 +18,7 @@ public class UrlController : ControllerBase, IUrlController
     [HttpDelete("{alias}")]
     public async Task DeleteAsync([Required] string alias)
     {
-        if (await _urlHandler.Delete(alias))
+        if (await urlHandler.Delete(alias))
         {
             // '204': description: Successfully deleted
             Response.StatusCode = StatusCodes.Status204NoContent;
@@ -54,7 +41,7 @@ public class UrlController : ControllerBase, IUrlController
     [HttpGet("{alias}")]
     public async Task GetAsync([Required] string alias)
     {
-        UrlItem? shortenedUrl = await _urlHandler.GetByAlias(alias);
+        UrlItem? shortenedUrl = await urlHandler.GetByAlias(alias);
 
         if (shortenedUrl == null)
         {
@@ -88,7 +75,7 @@ public class UrlController : ControllerBase, IUrlController
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(body.FullUrl);
 
-        UrlItem? shortenedUrl = await _urlHandler.Shorten(body.FullUrl, body.CustomAlias);
+        UrlItem? shortenedUrl = await urlHandler.Shorten(body.FullUrl, body.CustomAlias);
 
         if (shortenedUrl == null)
         {
@@ -112,7 +99,7 @@ public class UrlController : ControllerBase, IUrlController
     [HttpGet(Name = "urls")]
     public async Task<ICollection<UrlItem>> UrlsAsync()
     {
-        var output = await _urlHandler.GetAll(); // status 200
+        var output = await urlHandler.GetAll(); // status 200
 
         if (output == null) return [];
 
