@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.ComponentModel.DataAnnotations;
+using UrlShortener.Interfaces;
 
 namespace UrlShortener.Controllers;
 
@@ -12,9 +13,6 @@ public class UrlController(IUrlHandler urlHandler) : ControllerBase, IUrlControl
     /// </summary>
     /// <param name="alias"></param>
     /// <returns>Task</returns>
-    /// <remarks>
-    /// todo needs testing
-    /// </remarks>
     [HttpDelete("{alias}")]
     public async Task DeleteAsync([Required] string alias)
     {
@@ -36,7 +34,7 @@ public class UrlController(IUrlHandler urlHandler) : ControllerBase, IUrlControl
     /// <param name="alias"></param>
     /// <returns>Task</returns>
     /// <remarks>
-    /// todo needs testing
+    /// todo failed testing
     /// </remarks>
     [HttpGet("{alias}")]
     public async Task GetAsync([Required] string alias)
@@ -52,6 +50,7 @@ public class UrlController(IUrlHandler urlHandler) : ControllerBase, IUrlControl
 
         // '302': description: Redirect to the original URL
         Response.Redirect(shortenedUrl.FullUrl);
+        // todo return shortened url
         return;
     }
 
@@ -68,7 +67,6 @@ public class UrlController(IUrlHandler urlHandler) : ControllerBase, IUrlControl
     /// - Persist the shortened URLs across restarts
     ///   database
     /// - The API should validate inputs and handle errors gracefully.
-    /// todo needs testing
     /// </remarks>
     [HttpPost(Name = "shorten")]
     public async Task<UrlResponse> ShortenAsync(UrlBody body)
@@ -107,13 +105,14 @@ public class UrlController(IUrlHandler urlHandler) : ControllerBase, IUrlControl
     }
 }
 
-// todo - Fork the repository and work in your fork
-//        Do not push directly to the main repository
+// - Fork the repository and work in your fork
+//   Do not push directly to the main repository
+// - Use the provided[`openapi.yaml`](./openapi.yaml) as the API contract
+
 // todo - Be containerised (e.g. Docker)
 //      - Dockerfile
-// todo - Include instructions for running locally
-// done - Use the provided[`openapi.yaml`](./openapi.yaml) as the API contract
 // todo - Focus on clean, maintainable code
+// todo - Include instructions for running locally
 // todo - readme
 //          - How to build and run locally
 //          - Example usage (frontend and API)

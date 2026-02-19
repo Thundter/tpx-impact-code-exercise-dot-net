@@ -4,7 +4,7 @@ create_table_query = """
 CREATE TABLE IF NOT EXISTS urls (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     alias TEXT NOT NULL UNIQUE,
-    fullname TEXT NOT NULL
+    fullurl TEXT NOT NULL
 );
 """
 

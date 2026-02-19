@@ -1,4 +1,4 @@
-﻿namespace UrlShortener;
+﻿namespace UrlShortener.Interfaces;
 
 public interface IHelper
 {

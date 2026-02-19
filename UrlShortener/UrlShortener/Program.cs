@@ -1,9 +1,15 @@
-using NSwag;
-using Swashbuckle.AspNetCore.SwaggerGen;
+using UrlShortener;
+using UrlShortener.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 
+var config = builder.Configuration;
+
 // Add services to the container.
+builder.Services.AddTransient<IUrlHandler, UrlHandler>();
+builder.Services.AddTransient<IUrlRepository, UrlRepository>();
+builder.Services.AddTransient<IHelper, Helper>();
+builder.Services.AddTransient<IDatabaseHelper, DatabaseHelper>();
 
 builder.Services.AddControllers();
 

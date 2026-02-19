@@ -1,6 +1,6 @@
 ﻿using UrlShortener.Controllers;
 
-namespace UrlShortener;
+namespace UrlShortener.Interfaces;
 
 public interface IUrlRepository
 {

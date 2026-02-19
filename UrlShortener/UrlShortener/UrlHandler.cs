@@ -1,9 +1,9 @@
-﻿using System.Text;
-using UrlShortener.Controllers;
+﻿using UrlShortener.Controllers;
+using UrlShortener.Interfaces;
 
 namespace UrlShortener;
 
-public class UrlHandler(IUrlRepository dataLayer, IHelper helper) : IUrlHandler
+public class UrlHandler(IConfiguration configuration, IUrlRepository dataLayer, IHelper helper) : IUrlHandler
 {
     public async Task<bool> Delete(string alias)
     {
@@ -89,10 +89,13 @@ public class UrlHandler(IUrlRepository dataLayer, IHelper helper) : IUrlHandler
         }
     }
 
-    // todo AliasToShortUrl
     private string AliasToShortUrl(string alias)
     {
-        throw new NotImplementedException();
+        var shortUrl = configuration.GetValue<string>("Settings:UrlHandler:AliasToShortUrl");
+
+        ArgumentNullException.ThrowIfNullOrWhiteSpace(shortUrl);
+
+        return string.Concat(shortUrl, alias);
     }
 
     #region " mappers "

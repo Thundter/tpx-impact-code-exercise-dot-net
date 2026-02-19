@@ -1,9 +1,11 @@
 ﻿using Microsoft.Data.Sqlite;
+using System.Data;
+using UrlShortener.Interfaces;
 namespace UrlShortener;
 
-public class DatabaseHelper
+public class DatabaseHelper : IDatabaseHelper
 {
-    private readonly string _connectionString = $"Data Source=database.db;Version=3;";
+    private readonly string _connectionString;
 
     public DatabaseHelper(IConfiguration configuration)
     {
@@ -14,5 +16,7 @@ public class DatabaseHelper
         this._connectionString = connectionString;
     }
 
-    public SqliteConnection GetConnection() => new(_connectionString);
+    // note in a real application this shouldn't be a test database 
+    // however for demo purposes sqlite will do
+    public IDbConnection GetConnection() => new SqliteConnection (_connectionString);
 }

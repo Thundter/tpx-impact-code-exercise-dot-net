@@ -1,8 +1,9 @@
 ﻿using Dapper;
+using UrlShortener.Interfaces;
 
 namespace UrlShortener;
 
-public class UrlRepository(DatabaseHelper dbHelper) : IUrlRepository
+public class UrlRepository(IDatabaseHelper dbHelper) : IUrlRepository
 {
     const string GetByAliasSQL = @"
     SELECT *
@@ -14,7 +15,7 @@ public class UrlRepository(DatabaseHelper dbHelper) : IUrlRepository
         ArgumentException.ThrowIfNullOrWhiteSpace(alias);
 
         using var connection = dbHelper.GetConnection();
-        await connection.OpenAsync();
+        connection.Open();
         return await connection.QueryFirstOrDefaultAsync<UrlDto>(GetByAliasSQL, new { alias });
     }
 
@@ -25,22 +26,22 @@ public class UrlRepository(DatabaseHelper dbHelper) : IUrlRepository
     public async Task<IEnumerable<UrlDto>> GetAllAsync()
     {
         using var connection = dbHelper.GetConnection();
-        await connection.OpenAsync();
+        connection.Open();
         return await connection.QueryAsync<UrlDto>(GetAllSQL);
     }
 
     const string AddSQL = @"
     INSERT INTO Urls
          ( alias
-         , fullname )
+         , fullurl )
     VALUES
-         ( @alias
-         , @fullname )";
+         ( @Alias
+         , @FullUrl )";
 
     public async Task<int> AddAsync(UrlDto urlDto)
     {
         using var connection = dbHelper.GetConnection();
-        await connection.OpenAsync();
+        connection.Open();
         return await connection.ExecuteAsync(AddSQL, urlDto);
     }
 
@@ -53,7 +54,7 @@ public class UrlRepository(DatabaseHelper dbHelper) : IUrlRepository
         ArgumentException.ThrowIfNullOrWhiteSpace(alias);
 
         using var connection = dbHelper.GetConnection();
-        await connection.OpenAsync();
+        connection.Open();
         var rowsAffected = await connection.ExecuteAsync(DeleteSQL, new { alias });
         return rowsAffected > 0;
     }
@@ -69,7 +70,7 @@ public class UrlRepository(DatabaseHelper dbHelper) : IUrlRepository
         ArgumentException.ThrowIfNullOrWhiteSpace(alias);
 
         using var connection = dbHelper.GetConnection();
-        await connection.OpenAsync();
+        connection.Open();
 
         return await connection.QueryFirstOrDefaultAsync<bool>(ExistsByAliasSQL, new { alias });
     }
