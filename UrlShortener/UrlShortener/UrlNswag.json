@@ -7,14 +7,16 @@
   },
   "codeGenerators": {
     "openApiToCSharpClient": {
-      "generateDefaultValues": true,
+      "className": "UrlController",
+      "namespace": "UrlShortener.Controllers",
       "generateClientInterfaces": true,
+      "generateOptionalParameters": true,
+      "generateSyncMethods": false,
+      "output": "Controllers/IUrlController.cs",
+      "generateDefaultValues": true,
       "generateClientClasses": true,
       "generateExceptionClasses": false,
-      "suppressClientClassesOutput": true,
-      "namespace": "UrlShortener.Controllers",
-      "output": "Controllers/IUrlController.cs",
-      "generateOptionalParameters": false
+      "suppressClientClassesOutput": true
     }
   }
 }

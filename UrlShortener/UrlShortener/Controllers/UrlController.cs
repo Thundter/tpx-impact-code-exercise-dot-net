@@ -13,8 +13,11 @@ public class UrlController(IUrlHandler urlHandler) : ControllerBase, IUrlControl
     /// </summary>
     /// <param name="alias"></param>
     /// <returns>Task</returns>
+    /// <remarks>
+    /// todo requires testing
+    /// </remarks>
     [HttpDelete("{alias}")]
-    public async Task DeleteAsync([Required] string alias)
+    public async Task DeleteAsync([Required] string alias, CancellationToken cancellationToken = default)
     {
         if (await urlHandler.Delete(alias))
         {
@@ -37,7 +40,7 @@ public class UrlController(IUrlHandler urlHandler) : ControllerBase, IUrlControl
     /// todo failed testing
     /// </remarks>
     [HttpGet("{alias}")]
-    public async Task GetAsync([Required] string alias)
+    public async Task GetUrlByAliasAsync([Required] string alias, CancellationToken cancellationToken = default)
     {
         UrlItem? shortenedUrl = await urlHandler.GetByAlias(alias);
 
@@ -61,15 +64,15 @@ public class UrlController(IUrlHandler urlHandler) : ControllerBase, IUrlControl
     /// <param name="customUrl"></param>
     /// <returns>Task<UrlResponse></returns>
     /// <remarks>
-    /// - A shortened URL should have a randomly generated alias.
-    /// - Allow a user to **customise the shortened URL** if they want to 
+    /// v A shortened URL should have a randomly generated alias.
+    /// v Allow a user to **customise the shortened URL** if they want to 
     /// (e.g. user provides `my-custom-alias` instead of a random string).
-    /// - Persist the shortened URLs across restarts
+    /// v Persist the shortened URLs across restarts
     ///   database
-    /// - The API should validate inputs and handle errors gracefully.
+    /// v The API should validate inputs and handle errors gracefully.
     /// </remarks>
     [HttpPost(Name = "shorten")]
-    public async Task<UrlResponse> ShortenAsync(UrlBody body)
+    public async Task<UrlResponse> ShortenAsync(UrlBody body, CancellationToken cancellationToken = default)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(body.FullUrl);
 
@@ -88,14 +91,14 @@ public class UrlController(IUrlHandler urlHandler) : ControllerBase, IUrlControl
     }
 
     /// <remarks>
-    /// todo needs testing
+    /// tested
     /// </remarks>
     /// <summary>
     /// List all shortened URLs
     /// </summary>
     /// <returns>Task<ICollection<UrlItem>></returns>
     [HttpGet(Name = "urls")]
-    public async Task<ICollection<UrlItem>> UrlsAsync()
+    public async Task<ICollection<UrlItem>> GetAllAsync(CancellationToken cancellationToken = default)
     {
         var output = await urlHandler.GetAll(); // status 200
 
@@ -103,6 +106,7 @@ public class UrlController(IUrlHandler urlHandler) : ControllerBase, IUrlControl
 
         return output;
     }
+
 }
 
 // - Fork the repository and work in your fork

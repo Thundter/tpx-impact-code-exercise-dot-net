@@ -7,6 +7,7 @@ info:
 paths:
   /shorten:
     post:
+      operationId: Shorten
       summary: Shorten a URL
       requestBody:
         required: true
@@ -15,6 +16,7 @@ paths:
             schema:
               title: UrlBody
               type: object
+              additionalProperties: false
               required:
                 - fullUrl
               properties:
@@ -32,6 +34,7 @@ paths:
               schema:
                 title: UrlResponse
                 type: object
+                additionalProperties: false
                 properties:
                   shortUrl:
                     type: string
@@ -41,6 +44,7 @@ paths:
 
   /{alias}:
     get:
+      operationId: GetUrlByAlias
       summary: Redirect to full URL
       parameters:
         - name: alias
@@ -55,6 +59,7 @@ paths:
           description: Alias not found
 
     delete:
+      operationId: Delete
       summary: Delete a shortened URL
       parameters:
         - name: alias
@@ -70,25 +75,30 @@ paths:
 
   /urls:
     get:
+      operationId: GetAll
       summary: List all shortened URLs
       responses:
         '200':
           description: A list of shortened URLs
           content:
             application/json:
-              schema:
-                title: UrlItem
+              schema:               
                 type: array
                 items:
-                  type: object
-                  x-typeName: UrlItem
-                  properties:
-                    alias:
-                      type: string
-                      example: my-custom-alias
-                    fullUrl:
-                      type: string
-                      example: https://example.com/very/long/url
-                    shortUrl:
-                      type: string
-                      example: http://localhost:8080/my-custom-alias
+                  $ref: '#/components/schemas/UrlItem'
+
+components:
+  schemas:
+    UrlItem:
+      type: object
+      additionalProperties: false
+      properties:
+        alias:
+          type: string
+          example: my-custom-alias
+        fullUrl:
+          type: string
+          example: https://example.com/very/long/url
+        shortUrl:
+          type: string
+          example: http://localhost:8080/my-custom-alias

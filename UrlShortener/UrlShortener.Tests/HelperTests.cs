@@ -5,7 +5,6 @@ namespace UrlShortener.Tests;
 [TestClass]
 public class HelperTests
 {
-
     private IConfiguration CreateConfig(string? chars, int length)
     {
         var inMemorySettings = new Dictionary<string, string?>
@@ -57,9 +56,6 @@ public class HelperTests
         var helper = new Helper(config);
 
         // Act & Assert
-        Assert.Throws<ArgumentNullException>(() =>
-        {
-            helper.CreateRandomAlias();
-        });
+        Assert.Throws<ArgumentException>(helper.CreateRandomAlias);
     }
 }

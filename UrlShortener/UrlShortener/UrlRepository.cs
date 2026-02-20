@@ -12,7 +12,7 @@ public class UrlRepository(IDatabaseHelper dbHelper) : IUrlRepository
 
     public async Task<UrlDto?> GetByAlias(string alias)
     {
-        ArgumentException.ThrowIfNullOrWhiteSpace(alias);
+        ArgumentNullException.ThrowIfNullOrWhiteSpace(alias);
 
         using var connection = dbHelper.GetConnection();
         connection.Open();
@@ -51,7 +51,7 @@ public class UrlRepository(IDatabaseHelper dbHelper) : IUrlRepository
 
     public async Task<bool> DeleteAsync(string alias)
     {
-        ArgumentException.ThrowIfNullOrWhiteSpace(alias);
+        ArgumentNullException.ThrowIfNullOrWhiteSpace(alias);
 
         using var connection = dbHelper.GetConnection();
         connection.Open();
@@ -67,7 +67,7 @@ public class UrlRepository(IDatabaseHelper dbHelper) : IUrlRepository
 
     public async Task<bool> ExistsByAlias(string alias)
     {
-        ArgumentException.ThrowIfNullOrWhiteSpace(alias);
+        ArgumentNullException.ThrowIfNullOrWhiteSpace(alias);
 
         using var connection = dbHelper.GetConnection();
         connection.Open();
