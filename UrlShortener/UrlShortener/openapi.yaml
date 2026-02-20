@@ -54,7 +54,11 @@ paths:
             type: string
       responses:
         '302':
-          description: Redirect to the original URL
+          description: Redirect
+          headers:
+            Location:
+              schema:
+                type: string
         '404':
           description: Alias not found
 

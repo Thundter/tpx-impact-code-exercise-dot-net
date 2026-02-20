@@ -14,7 +14,7 @@ public class UrlController(IUrlHandler urlHandler) : ControllerBase, IUrlControl
     /// <param name="alias"></param>
     /// <returns>Task</returns>
     /// <remarks>
-    /// todo requires testing
+    /// tested
     /// </remarks>
     [HttpDelete("{alias}")]
     public async Task DeleteAsync([Required] string alias, CancellationToken cancellationToken = default)
@@ -37,7 +37,8 @@ public class UrlController(IUrlHandler urlHandler) : ControllerBase, IUrlControl
     /// <param name="alias"></param>
     /// <returns>Task</returns>
     /// <remarks>
-    /// todo failed testing
+    /// tested
+    /// this works as an independant url, however it doesn't work in swagger
     /// </remarks>
     [HttpGet("{alias}")]
     public async Task GetUrlByAliasAsync([Required] string alias, CancellationToken cancellationToken = default)
@@ -52,8 +53,8 @@ public class UrlController(IUrlHandler urlHandler) : ControllerBase, IUrlControl
         }
 
         // '302': description: Redirect to the original URL
-        Response.Redirect(shortenedUrl.FullUrl);
-        // todo return shortened url
+        Response.StatusCode = 302;
+        Response.Headers.Location = shortenedUrl.FullUrl;
         return;
     }
 
@@ -70,6 +71,7 @@ public class UrlController(IUrlHandler urlHandler) : ControllerBase, IUrlControl
     /// v Persist the shortened URLs across restarts
     ///   database
     /// v The API should validate inputs and handle errors gracefully.
+    /// tested
     /// </remarks>
     [HttpPost(Name = "shorten")]
     public async Task<UrlResponse> ShortenAsync(UrlBody body, CancellationToken cancellationToken = default)
@@ -113,7 +115,7 @@ public class UrlController(IUrlHandler urlHandler) : ControllerBase, IUrlControl
 //   Do not push directly to the main repository
 // - Use the provided[`openapi.yaml`](./openapi.yaml) as the API contract
 
-// todo - Be containerised (e.g. Docker)
+// done - Be containerised (e.g. Docker)
 //      - Dockerfile
 // todo - Focus on clean, maintainable code
 // todo - Include instructions for running locally
