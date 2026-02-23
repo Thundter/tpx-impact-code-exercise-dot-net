@@ -9,3 +9,5 @@
 /UrlShortener/UrlShortener/bin/Debug/net8.0
 /UrlShortener/UrlShortener.Tests/bin/Debug/net8.0
 /UrlShortener/UrlShortener/UrlShortener.csproj.user
+/UrlShortener/react-url-shortener/node_modules
+/UrlShortener/dotnet-tools.json

@@ -7,18 +7,22 @@
 todo - not sure what to write here ...
 1. make sure packages for code are installed ??
 
-
 ## examples
 
 
 
 ## notes
 
-__todo__ - front end
-__todo__ - readme.md file
+
+
+## todos
+
+__todo__ - BUG - alias not yet working
+__todo__ - front end tests
+__todo__ - quality checking
 __todo__ - front end currently untested 
-
-
+__todo__ - docker testings
+__todo__ - user guide
 
 ### .Net 10 & NSwag incompatability
 
@@ -41,7 +45,7 @@ It should:
 + A shortened URL should have a randomly generated alias.
 + Allow a user to **customise the shortened URL** if they want to (e.g. user provides `my-custom-alias` instead of a random string).
 + Persist the shortened URLs across restarts.
-- Expose a **decoupled web frontend built using React** that demonstrates interaction with the API. The frontend does not need to be visually complex, but should clearly show your approach to **frontend structure, state handling, and user interaction**. You may use supporting frameworks or libraries (e.g. Next.js, Material-UI, Tailwind CSS, GOV.UK Design System, etc.) to speed up development if you wish.
++ Expose a **decoupled web frontend built using React** that demonstrates interaction with the API. The frontend does not need to be visually complex, but should clearly show your approach to **frontend structure, state handling, and user interaction**. You may use supporting frameworks or libraries (e.g. Next.js, Material-UI, Tailwind CSS, GOV.UK Design System, etc.) to speed up development if you wish.
 + Expose a **RESTful API** to perform create/read/delete operations on URLs.  
   → Refer to the provided [`openapi.yaml`](./openapi.yaml) for API structure and expected behaviour.
 + Include the ability to **delete a shortened URL** via the API.
@@ -64,7 +68,7 @@ It should:
 ## Deliverables
 
 + Working software.
-- Decoupled web frontend using React.
++ Decoupled web frontend using React.
 + RESTful API matching the OpenAPI spec.
 - Tests.
 + A git commit history that shows your thought process.
