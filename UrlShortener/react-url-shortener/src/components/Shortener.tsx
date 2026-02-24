@@ -66,7 +66,7 @@ export const Shortener = ({ onRefresh }: ShortenerProps) => {
                     className="full-url-input"
                 />
             </div>
-            <div>
+            <div className="alias-div">
                 <label htmlFor="alias">Alias</label>
                 <input
                     id="alias"

@@ -23,10 +23,19 @@ h1, h3 {
     margin-bottom: 8px;
 }
 
+.alias-div {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
 .alias-input {
+    display:inline-block; 
     border-radius: 4px;
     padding: 8px;
     margin-bottom: 8px;
+    min-width: 100px;
+    max-width: calc(100% / 4);
 }
 
 .btn-shorten {
