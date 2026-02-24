@@ -2,6 +2,7 @@ import { getUrls, shortenUrl, deleteUrl } from "../api/urlClient"
 import type { UrlItem } from "../types/UrlItem"
 import type { ErrorResponse } from "../types/ErrorResponse"
 import { isErrorResponse } from "./errorService"
+import { AxiosError } from "axios"
 
 export const Urls = async (): Promise<UrlItem[] | ErrorResponse> => {
   try {
@@ -39,11 +40,19 @@ export const Shorten = async (
 
     return response
   } catch (error) {
-    console.log("UrlService:Shorten:Error", error)
-    if (error instanceof Error) {
+    if (error instanceof AxiosError ) {
+      var axiosError = error as AxiosError
+      console.log("UrlService:Shorten:AxiosError", axiosError, axiosError.cause, axiosError.code, axiosError.status)
+      if (axiosError.status === 400) {
+        return { message: "Invalid input or alias already taken" } as ErrorResponse
+      }
+      return { message: axiosError.message } as ErrorResponse
+    } else if (error instanceof Error ) {
+      console.log("UrlService:Shorten:Error", error)
       return { message: error.message } as ErrorResponse
     } else {
-      return {} as ErrorResponse
+      console.log("UrlService:Shorten:UnknownError", error)
+      return { message: "Unknown error" } as ErrorResponse
     }
   }
 }
@@ -62,10 +71,19 @@ export const Delete = async (alias: string): Promise<void | ErrorResponse> => {
     return response
   } catch (error) {
     console.log("UrlService:Delete:Error", error)
-    if (error instanceof Error) {
+    if (error instanceof AxiosError ) {
+      var axiosError = error as AxiosError
+      console.log("UrlService:Shorten:AxiosError", axiosError, axiosError.cause, axiosError.code, axiosError.status)
+      if (axiosError.status === 404) {
+        return { message: "Alias not found" } as ErrorResponse
+      }
+      return { message: axiosError.message } as ErrorResponse
+    } else if (error instanceof Error) {
+      console.log("UrlService:Shorten:Error", error)
       return { message: error.message } as ErrorResponse
     } else {
-      return {} as ErrorResponse
+      console.log("UrlService:Shorten:UnknownError", error)
+      return { message: "Unknown error" } as ErrorResponse
     }
   }
 }

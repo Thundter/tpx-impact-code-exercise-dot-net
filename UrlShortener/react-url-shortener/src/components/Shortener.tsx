@@ -43,6 +43,7 @@ export const Shortener = ({ onRefresh }: ShortenerProps) => {
         if (isErrorResponse(response)) {
             console.log("Shortener:handleShorten:error=>", response.message)
             setErrorText(response.message)
+            setIsLoading(false)
             return
         }
 
