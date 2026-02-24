@@ -14,9 +14,9 @@ todo - not sure what to write here ...
 ## todos
 
 ~~__todo__ - BUG - alias not yet working~~
-__todo__ - front end tests
-__todo__ - quality checking
-__todo__ - front end currently untested 
+~~__todo__ - front end tests~~
+~~__todo__ - quality checking~~
+~~__todo__ - front end currently untested~~ 
 __todo__ - docker testings
 __todo__ - user guide
 __todo__ - examples
