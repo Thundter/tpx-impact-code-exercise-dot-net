@@ -33,6 +33,7 @@ export const UrlList = ({ refreshCount }: UrlListProps) => {
 
     if (isErrorResponse(response)) {
       handleError(response as ErrorResponse)
+      setIsLoading(false)
       return
     }
 

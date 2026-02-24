@@ -3,7 +3,7 @@
     "module": "esnext",
     "target": "ES2020",
     "moduleResolution": "node",    
-    "types": [],
+    "types": ["node", "jest"],
     "sourceMap": true,
     "declaration": true,
     "declarationMap": true,

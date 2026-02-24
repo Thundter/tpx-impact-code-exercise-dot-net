@@ -28,6 +28,14 @@ export const Shortener = ({ onRefresh }: ShortenerProps) => {
             return
         }
 
+        // special char validation for alias
+        const aliasRegex = /^[a-zA-Z0-9-]*$/
+        if (!aliasRegex.test(inputAlias)) {
+            setErrorText("alias can only contain letters, numbers, and hyphens")
+            setIsLoading(false)
+            return
+        }
+
         setErrorText(null)
 
         var response = await Shorten(inputFullUrl, inputAlias)
@@ -49,20 +57,24 @@ export const Shortener = ({ onRefresh }: ShortenerProps) => {
     return (
         <div className="url-shortener-card">
             <div>
-                <label>Full Url</label>
-                <input type="text"
+                <label htmlFor="fullUrl">Full Url</label>
+                <input
+                    id="fullUrl"
+                    type="text"
                     value={inputFullUrl}
                     onChange={handleFullUrlChange}
-                    className="full-url-input" />
+                    className="full-url-input"
+                />
             </div>
             <div>
-                <label>Alias</label>
-            </div>
-            <div>
-                <input type="text"
+                <label htmlFor="alias">Alias</label>
+                <input
+                    id="alias"
+                    type="text"
                     value={inputAlias}
                     onChange={handleAliasChange}
-                    className="alias-input" />
+                    className="alias-input"
+                />
             </div>
             <div>
                 <button className="btn-shorten"
