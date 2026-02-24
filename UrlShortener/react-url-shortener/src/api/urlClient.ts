@@ -20,7 +20,7 @@ export const getUrl = async (alias: string): Promise<UrlItem[] > =>
   (await httpClient.get<UrlItem[]>("/url")).data
 
 export const shortenUrl = async (fullUrl: string, alias: string): Promise<UrlItem> =>
-  await httpClient.post("/url", { fullUrl, alias})
+  await httpClient.post("/url", { fullUrl, CustomAlias:alias})
 
 export const deleteUrl = async (alias: string): Promise<void> =>
   await httpClient.delete(`/url/${alias}`)
